@@ -18,7 +18,7 @@ jobs:
       - name: pdflatex main
         uses: dante-ev/latex-action@latest
         with:
-          root_file: ${{ env.BASENAME }}.tex
+          root_file: tex/${{ env.BASENAME }}.tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
       - name: pdflatex main 2
