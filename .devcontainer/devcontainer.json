@@ -1,0 +1,77 @@
+{
+	"name": "LaTeX Dev Container",
+	"dockerFile": "Dockerfile",
+	"workspaceFolder": "/workspace",
+	"mounts": [
+		"source=${localWorkspaceFolder},target=/workspace,type=bind",
+		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.vimrc,target=/root/.vimrc,type=bind,consistency=cached"
+	],
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {
+
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"latex-workshop.latex.tools": [
+					{
+						"name": "pdflatex",
+						"command": "pdflatex",
+						"args": [
+							"-interaction=nonstopmode",
+							"-file-line-error",
+							"-synctex=1",
+							"%DOC%"
+						],
+						"env": {
+
+						}
+					}
+				],
+				"latex-workshop.latex.recipes": [
+					{
+						"name": "pdflatex",
+						"tools": [
+							"pdflatex",
+							"pdflatex"
+						]
+					}
+				],
+				"latex-workshop.view.pdf.viewer": "tab",
+				"latex-workshop.latex.autoBuild.run": "onFileChange",
+				"latex-workshop.latex.autoClean.run": "onBuilt",
+				"latex-workshop.latex.clean.fileTypes": [
+					"*.aux",
+					"*.bbl",
+					"*.blg",
+					"*.idx",
+					"*.ind",
+					"*.lof",
+					"*.lot",
+					"*.out",
+					"*.toc",
+					"*.acn",
+					"*.acr",
+					"*.alg",
+					"*.glg",
+					"*.glo",
+					"*.gls",
+					"*.fls",
+					"*.log",
+					"*.fdb_latexmk",
+					"*.snm",
+					"*.nav",
+					"*.synctex.gz"
+				],
+				"latex-workshop.latex.outDir": "%DIR%",
+				"latex-workshop.synctex.afterBuild.enabled": true
+			},
+			"extensions": [
+				"James-Yu.latex-workshop"
+			]
+		}
+	},
+	"remoteUser": "root"
+}
