@@ -24,6 +24,33 @@
 			],
 			"dependsOrder": "sequence",
 			"problemMatcher": []
+		},
+		{
+			"label": "Open The Built PDF",
+			"type": "shell",
+			"command": "code",
+			"args": [
+				"-r",
+				"${fileDirname}/${fileBasenameNoExtension}.pdf"
+			],
+			"dependsOn": ["Build LaTeX Twice"],
+			"problemMatcher": []
+		},
+		{
+			"label": "Spell Check",
+			"type": "shell",
+			"command": "sh",
+			"args": [
+				"-c",
+				"aspell --lang=en --mode=tex --personal=/workspace/.aspell.en.pws list < '${file}' | sort -u"
+			],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": []
 		}
 	]
 }
