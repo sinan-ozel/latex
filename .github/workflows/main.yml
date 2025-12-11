@@ -17,16 +17,22 @@ jobs:
         uses: actions/checkout@v2
       - name: pdflatex main
         uses: dante-ev/latex-action@latest
+        env:
+          TEXINPUTS: ".:/github/workspace/classes//:"
         with:
           root_file: tex/${{ env.BASENAME }}.tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
+
       - name: pdflatex main 2
         uses: dante-ev/latex-action@latest
+        env:
+          TEXINPUTS: ".:/github/workspace/classes//:"
         with:
-          root_file: ${{ env.BASENAME }}.tex
+          root_file: tex/${{ env.BASENAME }}.tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
+
       - name: Upload the PDF
         uses: actions/upload-artifact@v4
         with:
