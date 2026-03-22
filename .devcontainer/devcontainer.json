@@ -4,8 +4,8 @@
 	"workspaceFolder": "/workspace",
 	"mounts": [
 		"source=${localWorkspaceFolder},target=/workspace,type=bind",
-		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.vimrc,target=/root/.vimrc,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.vimrc,target=/home/vscode/.vimrc,type=bind,consistency=cached"
 	],
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {
@@ -77,5 +77,5 @@
 			]
 		}
 	},
-	"remoteUser": "root"
+	"remoteUser": "vscode"
 }

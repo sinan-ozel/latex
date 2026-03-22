@@ -4,11 +4,14 @@
 		{
 			"label": "Build LaTeX",
 			"type": "shell",
-			"command": "pdflatex",
+			"command": "sh",
 			"args": [
-				"-interaction=nonstopmode",
-				"${file}"
+				"-c",
+				"case \"${file}\" in *.tex) ;; *) echo \"Error: active file is not a .tex file\" >&2; exit 1;; esac && mkdir -p /tmp/latex-out ../pdf && pdflatex -interaction=nonstopmode -output-directory=/tmp/latex-out \"${file}\" && cat /tmp/latex-out/\"${fileBasenameNoExtension}\".pdf > ../pdf/\"${fileBasenameNoExtension}\".pdf"
 			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
 			"group": {
 				"kind": "build",
 				"isDefault": true
@@ -20,8 +23,11 @@
 			"command": "sh",
 			"args": [
 				"-c",
-				"pdflatex -interaction=nonstopmode \"${file}\" && pdflatex -interaction=nonstopmode \"${file}\""
+				"case \"${file}\" in *.tex) ;; *) echo \"Error: active file is not a .tex file\" >&2; exit 1;; esac && mkdir -p /tmp/latex-out ../pdf && pdflatex -interaction=nonstopmode -output-directory=/tmp/latex-out \"${file}\" && pdflatex -interaction=nonstopmode -output-directory=/tmp/latex-out \"${file}\" && cat /tmp/latex-out/\"${fileBasenameNoExtension}\".pdf > ../pdf/\"${fileBasenameNoExtension}\".pdf"
 			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
 			"dependsOrder": "sequence",
 			"problemMatcher": []
 		},
@@ -31,7 +37,7 @@
 			"command": "code",
 			"args": [
 				"-r",
-				"${fileDirname}/${fileBasenameNoExtension}.pdf"
+				"${fileDirname}/pdf/${fileBasenameNoExtension}.pdf"
 			],
 			"dependsOn": ["Build LaTeX Twice"],
 			"problemMatcher": []
