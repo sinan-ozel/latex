@@ -7,7 +7,7 @@
 			"command": "sh",
 			"args": [
 				"-c",
-				"case \"${file}\" in *.tex) ;; *) echo \"Error: active file is not a .tex file\" >&2; exit 1;; esac && mkdir -p /tmp/latex-out ../pdf && pdflatex -interaction=nonstopmode -output-directory=/tmp/latex-out \"${file}\" && cat /tmp/latex-out/\"${fileBasenameNoExtension}\".pdf > ../pdf/\"${fileBasenameNoExtension}\".pdf"
+				"case \"${file}\" in *.tex) ;; *) echo \"Error: active file is not a .tex file\" >&2; exit 1;; esac && mkdir -p /tmp/latex-out ../pdf && pdflatex -interaction=nonstopmode -output-directory=/tmp/latex-out \"${file}\" && (cd /tmp/latex-out && BIBINPUTS=\"${fileDirname}:\" bibtex \"${fileBasenameNoExtension}\") && pdflatex -interaction=nonstopmode -output-directory=/tmp/latex-out \"${file}\" && pdflatex -interaction=nonstopmode -output-directory=/tmp/latex-out \"${file}\" && cat /tmp/latex-out/\"${fileBasenameNoExtension}\".pdf > ../pdf/\"${fileBasenameNoExtension}\".pdf"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

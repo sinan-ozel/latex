@@ -4,15 +4,15 @@
 	"workspaceFolder": "/workspace",
 	"mounts": [
 		"source=${localWorkspaceFolder},target=/workspace,type=bind",
-		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.vimrc,target=/home/vscode/.vimrc,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached,readonly",
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached,readonly",
 	],
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {
 
 		}
 	},
-	"postStartCommand": "chown -R root:root /root/.ssh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/* 2>/dev/null || true",
+	// "postStartCommand": "sudo cp -a /home/vscode/.ssh-host/. /home/vscode/.ssh/ && sudo chown -R vscode:vscode /home/vscode/.ssh /home/vscode/.claude && chmod 700 /home/vscode/.ssh && chmod 600 /home/vscode/.ssh/* 2>/dev/null || true",
 	"customizations": {
 		"vscode": {
 			"settings": {
@@ -35,11 +35,12 @@
 					{
 						"name": "pdflatex",
 						"tools": [
-							"pdflatex",
+							// "pdflatex",
 							"pdflatex"
 						]
 					}
 				],
+				"latex-workshop.bind.enter.key": false,
 				"latex-workshop.view.pdf.viewer": "tab",
 				"latex-workshop.latex.autoBuild.run": "onFileChange",
 				"latex-workshop.latex.autoClean.run": "onBuilt",
@@ -66,13 +67,14 @@
 					"*.nav",
 					"*.synctex.gz"
 				],
-				"latex-workshop.latex.outDir": "%DIR%",
-				"latex-workshop.synctex.afterBuild.enabled": true
+				"latex-workshop.latex.outDir": "%DIR%/pdf",
+				"latex-workshop.synctex.afterBuild.enabled": true,
+				"terminal.integrated.defaultProfile.linux": "bash"
 			},
 			"extensions": [
 				"github.copilot",
 		        "github.copilot-chat",
-				"gruntfuggly.todo-tree",
+				"dnut.rewrap-revived",
 				"James-Yu.latex-workshop"
 			]
 		}

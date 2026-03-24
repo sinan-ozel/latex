@@ -14,22 +14,24 @@ jobs:
       BASENAME: hello
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: pdflatex main
         uses: dante-ev/latex-action@latest
         env:
-          TEXINPUTS: ".:/github/workspace/classes//:"
+          TEXINPUTS: ".:/github/workspace/tex//:/github/workspace/classes//:"
         with:
-          root_file: tex/${{ env.BASENAME }}.tex
+          root_file: ${{ env.BASENAME }}.tex
+          working_directory: tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
 
       - name: pdflatex main 2
         uses: dante-ev/latex-action@latest
         env:
-          TEXINPUTS: ".:/github/workspace/classes//:"
+          TEXINPUTS: ".:/github/workspace/tex//:/github/workspace/classes//:"
         with:
-          root_file: tex/${{ env.BASENAME }}.tex
+          root_file: ${{ env.BASENAME }}.tex
+          working_directory: tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
 
@@ -38,11 +40,13 @@ jobs:
         with:
           name: ${{ env.BASENAME }}
           path: |
-            ./${{ env.BASENAME }}.pdf
-            ./${{ env.BASENAME }}.log
+            tex/${{ env.BASENAME }}.pdf
+            tex/${{ env.BASENAME }}.log
 
       - name: Tag release with PDF version
         run: |
           TAG_NAME="pdf-$(date +'%Y%m%d-%H%M')"
+          git pull --rebase origin ${{ github.ref_name }}
           git tag $TAG_NAME
           git push origin $TAG_NAME
+
